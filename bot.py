@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 import time
 import datetime
 
@@ -55,8 +56,7 @@ def send_weather(message):
 
 
 @bot.message_handler(commands=['ku', 'ку'])
-@bot.message_handler(regexp="^.ку$")
-@bot.message_handler(regexp="^ку$")
+@bot.message_handler(regexp="^(ку|\.ку|ku|\.ku|re|\.re)$")
 def send_ku(message):
     tz = 'Asia/Yekaterinburg'
     fmt = '%Y-%m-%d %H:%M:%S'
@@ -66,6 +66,21 @@ def send_ku(message):
     print(ural_string)
     bot.send_message(message.chat.id, ural_string)
     #bot.reply_to(message, ural_string)
+
+@bot.message_handler(regexp="^(ку|\.ку|ku|\.ku|re|\.re) ([А-Яa-я]*)")
+def send_ku_town(message):
+    if re.search(r'Орск|Orsk', message.text):
+        tz = 'Asia/Yekaterinburg'
+
+    if re.search(r'Москва|Moscow|Питер|Piter|СПб', message.text):
+        tz = 'Europe/Moscow'
+
+    fmt = '%Y-%m-%d %H:%M:%S'
+    utc = datetime.datetime.utcnow()
+    ural = timezone(tz).fromutc(utc)
+    ural_string = ural.strftime(fmt)
+    print(ural_string)
+    bot.send_message(message.chat.id, ural_string)
 
 
 bot.polling(none_stop=True)
