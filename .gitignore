@@ -1,0 +1,6 @@
+*.pyc
+__pycache__
+.env
+config.py
+out.jpg
+meteo.xml
