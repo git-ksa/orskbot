@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import re
+import random
 import datetime
 
 import telebot
@@ -74,5 +75,18 @@ def send_ku_town(message):
     utc = datetime.datetime.utcnow()
     time_str = timezone(tz).fromutc(utc).strftime(fmt)
     bot.send_message(message.chat.id, time_str)
+
+
+@bot.message_handler(commands=['сиськи'])
+@bot.message_handler(regexp="^(сиськи|\.сиськи)$")
+def send_cucki(message):
+    f = open('cucbka.dat')
+    links = f.read().split('\n')
+    f.close()
+
+    i = random.randint(0, len(links) - 1)
+    url = "https://blog.stanis.ru/" + links[i]
+    bot.send_message(message.chat.id, url)
+
 
 bot.polling(none_stop=True)
