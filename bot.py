@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import re
-import time
+import random
 import datetime
 
 import telebot
@@ -32,12 +33,7 @@ def send_weather(message):
     # get temperature
     r = requests.get('http://pc.ornpz.ru/meteo/meteo.xml')
     if r.status_code == 200:
-        f = open('meteo.xml', 'wb')
-        f.write(r.content)
-        f.close()
-
-        with open('meteo.xml') as fd:
-            doc = xmltodict.parse(fd.read())
+        doc = xmltodict.parse(r.text)
             
         for section in doc['points']['point']:
             key = section.get('@name', None)
@@ -61,14 +57,14 @@ def send_ku(message):
     tz = 'Asia/Yekaterinburg'
     fmt = '%Y-%m-%d %H:%M:%S'
     utc = datetime.datetime.utcnow()
-    ural = timezone(tz).fromutc(utc)
-    ural_string = ural.strftime(fmt)
-    print(ural_string)
-    bot.send_message(message.chat.id, ural_string)
-    #bot.reply_to(message, ural_string)
+    time_str = timezone(tz).fromutc(utc).strftime(fmt)
+    bot.send_message(message.chat.id, time_str)
+
 
 @bot.message_handler(regexp="^(ку|\.ку|ku|\.ku|re|\.re) ([А-Яa-я]*)")
 def send_ku_town(message):
+    tz = 'Asia/Yekaterinburg'
+
     if re.search(r'Орск|Orsk', message.text):
         tz = 'Asia/Yekaterinburg'
 
@@ -77,10 +73,20 @@ def send_ku_town(message):
 
     fmt = '%Y-%m-%d %H:%M:%S'
     utc = datetime.datetime.utcnow()
-    ural = timezone(tz).fromutc(utc)
-    ural_string = ural.strftime(fmt)
-    print(ural_string)
-    bot.send_message(message.chat.id, ural_string)
+    time_str = timezone(tz).fromutc(utc).strftime(fmt)
+    bot.send_message(message.chat.id, time_str)
+
+
+@bot.message_handler(commands=['сиськи'])
+@bot.message_handler(regexp="^(сиськи|\.сиськи)$")
+def send_cucki(message):
+    f = open('cucbka.dat')
+    links = f.read().split('\n')
+    f.close()
+
+    i = random.randint(0, len(links) - 1)
+    url = "https://blog.stanis.ru/" + links[i]
+    bot.send_message(message.chat.id, url)
 
 
 bot.polling(none_stop=True)
