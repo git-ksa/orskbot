@@ -20,9 +20,9 @@ for page in range(MIN_PAGE, MAX_PAGE + 1):
     if r.status_code == 200:
         tree = html.fromstring(r.text)
         links = tree.xpath('//div[@class="pic"]/img/@src')
-        f.write("\r\n".join(links))
+        f.write("\n".join(links))
     if page != MAX_PAGE:
-        f.write("\r\n")
+        f.write("\n")
         time.sleep(2)
 
 f.close()
