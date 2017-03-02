@@ -25,7 +25,7 @@ $ source .env/Scripts/activate
 
 Install dependens
 ```sh
-pip install > requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Run
@@ -37,6 +37,6 @@ bot_loop.cmd
 
 Linux and OS X
 ```sh
-$ source .env/Scripts/activate
+$ source .env/bin/activate
 $ python bot.py
 ```
