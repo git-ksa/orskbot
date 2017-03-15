@@ -8,7 +8,6 @@ import requests
 import xmltodict
 from pytz import timezone
 from datetime import time
-#from datetime import datetime
 
 import config
 
@@ -76,7 +75,6 @@ def send_ku_town(message):
     utc = datetime.datetime.utcnow()
     time_str = timezone(tz).fromutc(utc).strftime(fmt)
     bot.send_message(message.chat.id, time_str)
-    bot.send_message(message.chat.id, message.chat.id)
 
 @bot.message_handler(commands=['сиськи'])
 @bot.message_handler(regexp="^(сиськи|\.сиськи)$")
