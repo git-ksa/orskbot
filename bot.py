@@ -3,11 +3,12 @@
 import re
 import random
 import datetime
-
 import telebot
 import requests
 import xmltodict
 from pytz import timezone
+from datetime import time
+#from datetime import datetime
 
 import config
 
@@ -75,18 +76,36 @@ def send_ku_town(message):
     utc = datetime.datetime.utcnow()
     time_str = timezone(tz).fromutc(utc).strftime(fmt)
     bot.send_message(message.chat.id, time_str)
-
+    bot.send_message(message.chat.id, message.chat.id)
 
 @bot.message_handler(commands=['сиськи'])
 @bot.message_handler(regexp="^(сиськи|\.сиськи)$")
 def send_cucki(message):
-    f = open('cucbka.dat')
-    links = f.read().split('\n')
-    f.close()
+   if message.chat.id != -1001046809592:
+     f = open('cucbka.dat')
+     links = f.read().split('\n')
+     f.close()
+ 
+     i = random.randint(0, len(links) - 1)
+     url = "https://blog.stanis.ru/" + links[i]
+     bot.send_message(message.chat.id, url)
+   else:
+    tz = 'Europe/Moscow'
+    fmt = '%Y-%m-%d %H:%M:%S'
+    utc = datetime.datetime.utcnow()
+    now = timezone(tz).fromutc(utc)
+    time_str = timezone(tz).fromutc(utc).strftime(fmt)
+    now_time = now.time()
+    if now_time <= time(8,30) and now_time >= time(18,30):
+      f = open('cucbka.dat')
+      links = f.read().split('\n')
+      f.close() 
 
-    i = random.randint(0, len(links) - 1)
-    url = "https://blog.stanis.ru/" + links[i]
-    bot.send_message(message.chat.id, url)
-
+      i = random.randint(0, len(links) - 1)
+      url = "https://blog.stanis.ru/" + links[i]
+      bot.send_message(message.chat.id, url)
+    else:
+      print (time_str+'с 8:30 по 18:30 MSK сиськи не показываю. Пишите в приват. @OPCKBot ')
+      bot.send_message(message.chat.id, 'с 8:30 по 18:30 MSK сиськи не показываю. Пишите в приват @OPCKBot')
 
 bot.polling(none_stop=True)
