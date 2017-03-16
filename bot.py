@@ -94,7 +94,7 @@ def send_cucki(message):
     now = timezone(tz).fromutc(utc)
     time_str = timezone(tz).fromutc(utc).strftime(fmt)
     now_time = now.time()
-    if now_time <= time(8,30) and now_time >= time(18,30):
+    if now_time <= time(8,30) or now_time >= time(18,30):
       f = open('cucbka.dat')
       links = f.read().split('\n')
       f.close() 
