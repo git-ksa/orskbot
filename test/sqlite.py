@@ -4,7 +4,7 @@ import sqlite3
 con = sqlite3.connect('calcs.db')
 cur = con.cursor()
 
-# создать таблицу(или файл) если не существует
+# СЃРѕР·РґР°С‚СЊ С‚Р°Р±Р»РёС†Сѓ(РёР»Рё С„Р°Р№Р») РµСЃР»Рё РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
 try:
  cur.execute('CREATE TABLE calcs (calc VARCHAR(20) PRIMARY KEY, who VARCHAR(50), datetime DATE ,text VARCHAR(1024))')
  con.commit()
