@@ -123,7 +123,7 @@ def send_cucki(message):
     now = timezone(tz).fromutc(utc)
     time_str = timezone(tz).fromutc(utc).strftime(fmt)
     now_time = now.time()
-    if now_time <= time(8,30) or now_time >= time(18,30):
+    if now_time <= time(7,00) or now_time >= time(18,30):
       f = open('cucbka.dat')
       links = f.read().split('\n')
       f.close() 
@@ -132,7 +132,7 @@ def send_cucki(message):
       url = "https://blog.stanis.ru/" + links[i]
       bot.send_message(message.chat.id, url)
     else:
-      print (time_str+'с 8:30 по 18:30 MSK сиськи не показываю. Пишите в приват. @OPCKBot ')
-      bot.send_message(message.chat.id, 'с 8:30 по 18:30 MSK сиськи не показываю. Пишите в приват @OPCKBot')
+      print (time_str+'с 7:00 по 18:30 MSK сиськи не показываю. Пишите в приват. @OPCKBot ')
+      bot.send_message(message.chat.id, 'с 7:00 по 18:30 MSK сиськи не показываю. Пишите в приват @OPCKBot')
 
 bot.polling(none_stop=True)
