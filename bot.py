@@ -15,7 +15,7 @@ bot = telebot.TeleBot(config.token)
 
 @bot.message_handler(commands=['w', 'п'])
 @bot.message_handler(regexp="^.п$")
-@bot.message_handler(regexp="^п$")
+#@bot.message_handler(regexp="^п$")
 def send_weather(message):
     r = requests.get('http://pc.ornpz.ru/meteo/temperature1day.png')
     if r.status_code == 200:
@@ -52,7 +52,7 @@ def send_weather(message):
 
 @bot.message_handler(commands=['wm', 'пм'])
 @bot.message_handler(regexp="^.пм$")
-@bot.message_handler(regexp="^пм$")
+#@bot.message_handler(regexp="^пм$")
 def send_weather(message):
     # get temperature MSK
     r = requests.get('http://api.openweathermap.org/data/2.5/weather?id=524901&units=metric&mode=xml&appid=7cad4e5a16fc989137d9dcaa7d726ff8')
