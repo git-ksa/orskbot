@@ -32,7 +32,7 @@ def send_weather(message):
     now = timezone(tz).fromutc(utc)
     time_str = timezone(tz).fromutc(utc).strftime(fmt)
     now_time = now.time()
-    if now_time <= time(22,00) or now_time >= time(11,00):
+    if now_time <= time(22,00) and now_time >= time(11,00):
         station = '9900854'
     else:
         station = '9900846'
