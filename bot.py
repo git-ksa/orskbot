@@ -17,6 +17,7 @@ bot = telebot.TeleBot(config.token)
 @bot.message_handler(commands=['wc', 'пч'])
 @bot.message_handler(regexp="^.пч$")
 @bot.message_handler(regexp="^.ч$")
+@bot.message_handler(regexp="^.чп$")
 def send_weather(message):
     r = requests.get('http://api.openweathermap.org/data/2.5/weather?id=1508291&units=metric&mode=xml&appid=7cad4e5a16fc989137d9dcaa7d726ff8')
     if r.status_code == 200:
