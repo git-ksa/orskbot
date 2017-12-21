@@ -16,13 +16,14 @@ bot = telebot.TeleBot(config.token)
 
 @bot.message_handler(commands=['wc', 'пч'])
 @bot.message_handler(regexp="^.пч$")
+@bot.message_handler(regexp="^.ч$")
 def send_weather(message):
     r = requests.get('http://api.openweathermap.org/data/2.5/weather?id=1508291&units=metric&mode=xml&appid=7cad4e5a16fc989137d9dcaa7d726ff8')
     if r.status_code == 200:
         doc = xmltodict.parse(r.text)
         temperature = doc['current']['temperature']['@value']
     else:
-        temperature = 'хз сколько там за бортом, оденьте шарф'
+        temperature = 'хз сколько там за бортом, наденьте шарф'
 
     tz = 'Asia/Yekaterinburg'
     fmt = '%Y-%m-%d %H:%M:%S'
@@ -50,7 +51,7 @@ def send_weather(message):
         current_time = r_dict['data']['properties']['currentTime']
     except KeyError:
         bot.send_message(message.chat.id, 'За бортом: ', temperature) 
-        bot.send_message(message.chat.id, 'C пепелацем произошла какаято хуйня...')
+        bot.send_message(message.chat.id, 'C пепелацем произошла какая-то хуйня...')
         return
 
     fmt = '%H:%M:%S'
@@ -82,7 +83,7 @@ def send_weather(message):
                 if count == 0: message_list.append('Пепелац №22 пока не прибывает, ждите')
     except KeyError:
         bot.send_message(message.chat.id, 'За бортом: ', temperature)
-        bot.send_message(message.chat.id, 'C пепелацем произошла какаято хуйня...')
+        bot.send_message(message.chat.id, 'C пепелацем произошла какая-то хуйня...')
         return
     msg = ''
     for item in message_list:
@@ -104,7 +105,7 @@ def send_weather(message):
         bot.send_photo(message.chat.id, img)
         img.close()
     else:
-        bot.send_message(message.chat.id, "Произошла какаято хуйня (URL: http://pc.ornpz.ru/meteo/temperature1day.png)...") 
+        bot.send_message(message.chat.id, "Произошла какая-то хуйня (URL: http://pc.ornpz.ru/meteo/temperature1day.png)...") 
 
     # get temperature
     r = requests.get('http://pc.ornpz.ru/meteo/meteo.xml')
