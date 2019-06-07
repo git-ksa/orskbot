@@ -157,6 +157,19 @@ def send_weather(message):
         bot.send_message(message.chat.id, u"cannot get content of ( URL: http://api.openweathermap.org/data/2.5/weather?id=468902&units=metric&mode=xml&appid=7cad4e5a16fc989137d9dcaa7d726ff8)... ERROR:" + str(r.status))
 
 
+@bot.message_handler(commands=['wp', 'пп'])
+@bot.message_handler(regexp="^.пп$")
+@bot.message_handler(regexp="^пп$")
+def send_weather(message):
+    # get temperature MSK
+    r = requests.get('http://api.openweathermap.org/data/2.5/weather?id=498817&units=metric&mode=xml&appid=7cad4e5a16fc989137d9dcaa7d726ff8')
+    if r.status_code == 200:
+        doc = xmltodict.parse(r.text)
+        value = doc['current']['temperature']['@value']
+        print('SPB T:' + value)
+        bot.send_message(message.chat.id,'SPB T: ' + value)
+    else:
+        bot.send_message(message.chat.id, u"cannot get content of ( URL: http://api.openweathermap.org/data/2.5/weather?id=498817&units=metric&mode=xml&appid=7cad4e5a16fc989137d9dcaa7d726ff8)... ERROR:" + str(r.status))
 
 @bot.message_handler(commands=['ku', 'ку'])
 @bot.message_handler(regexp="^(ку|\.ку|ku|\.ku|re|\.re)$")
