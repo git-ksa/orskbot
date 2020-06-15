@@ -199,7 +199,7 @@ def send_ku_town(message):
 @bot.message_handler(commands=['сиськи'])
 @bot.message_handler(regexp="^(сиськи|\.сиськи)$")
 def send_cucki(message):
-   if message.chat.id != -1001046809592 and message.chat.id != -242669552:
+#   if message.chat.id != -1001046809592 and message.chat.id != -242669552:
      f = open('cucbka.dat')
      links = f.read().split('\n')
      f.close()
@@ -207,23 +207,23 @@ def send_cucki(message):
      i = random.randint(0, len(links) - 1)
      url = "https://blog.stanis.ru/" + links[i]
      bot.send_message(message.chat.id, url)
-   else:
-    tz = 'Europe/Moscow'
-    fmt = '%Y-%m-%d %H:%M:%S'
-    utc = datetime.datetime.utcnow()
-    now = timezone(tz).fromutc(utc)
-    time_str = timezone(tz).fromutc(utc).strftime(fmt)
-    now_time = now.time()
-    if now_time <= time(7,00) or now_time >= time(18,30):
-      f = open('cucbka.dat')
-      links = f.read().split('\n')
-      f.close() 
-
-      i = random.randint(0, len(links) - 1)
-      url = "https://blog.stanis.ru/" + links[i]
-      bot.send_message(message.chat.id, url)
-    else:
-      print (time_str+'с 7:00 по 18:30 MSK сиськи не показываю. Пишите в приват. @OPCKBot ')
-      bot.send_message(message.chat.id, 'с 7:00 по 18:30 MSK сиськи не показываю. Пишите в приват @OPCKBot')
+#   else:
+#    tz = 'Europe/Moscow'
+#    fmt = '%Y-%m-%d %H:%M:%S'
+#    utc = datetime.datetime.utcnow()
+#    now = timezone(tz).fromutc(utc)
+#    time_str = timezone(tz).fromutc(utc).strftime(fmt)
+#    now_time = now.time()
+#    if now_time <= time(7,00) or now_time >= time(18,30):
+#      f = open('cucbka.dat')
+#      links = f.read().split('\n')
+#      f.close() 
+#
+#      i = random.randint(0, len(links) - 1)
+#      url = "https://blog.stanis.ru/" + links[i]
+#      bot.send_message(message.chat.id, url)
+#    else:
+#      print (time_str+'с 7:00 по 18:30 MSK сиськи не показываю. Пишите в приват. @OPCKBot ')
+#      bot.send_message(message.chat.id, 'с 7:00 по 18:30 MSK сиськи не показываю. Пишите в приват @OPCKBot')
 
 bot.polling(none_stop=True)
