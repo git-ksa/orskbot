@@ -197,7 +197,7 @@ def send_ku_town(message):
     bot.send_message(message.chat.id, time_str)
 
 @bot.message_handler(commands=['сиськи'])
-@bot.message_handler(regexp="^(сиськи|\.сиськи)$")
+@bot.message_handler(regexp="^(сиськи|\.сиськи|\.с)$")
 def send_cucki(message):
 #   if message.chat.id != -1001046809592 and message.chat.id != -242669552:
      f = open('cucbka.dat')
