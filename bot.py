@@ -132,7 +132,7 @@ def send_weather(message):
     if r.status_code == 200:
         doc = xmltodict.parse(r.text)
         value = doc['current']['temperature']['@value']
-        print('MSK T:' + value)
+        print('ORS T:' + value)
         bot.send_message(message.chat.id,'ORS T: ' + value)
     else:
         bot.send_message(message.chat.id, u"cannot get content of ( URL: http://api.openweathermap.org/data/2.5/weather?id=514734&units=metric&mode=xml&appid=7cad4e5a16fc989137d9dcaa7d726ff8)... ERROR:" + str(r.status))
