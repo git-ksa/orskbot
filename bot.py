@@ -95,38 +95,50 @@ def send_weather(message):
 @bot.message_handler(regexp="^.п$")
 #@bot.message_handler(regexp="^п$")
 def send_weather(message):
-    r = requests.get('http://pc.ornpz.ru/meteo/temperature1day.png')
-    if r.status_code == 200:
-        f = open('out.jpg', 'wb')
-        f.write(r.content)
-        f.close()
+#    r = requests.get('http://pc.ornpz.ru/meteo/temperature1day.png')
+#    if r.status_code == 200:
+#        f = open('out.jpg', 'wb')
+#        f.write(r.content)
+#        f.close()
 
-        bot.send_chat_action(message.chat.id, 'upload_photo')
-        img = open('out.jpg', 'rb')
-        bot.send_photo(message.chat.id, img)
-        img.close()
-    else:
-        bot.send_message(message.chat.id, "Произошла какая-то хуйня (URL: http://pc.ornpz.ru/meteo/temperature1day.png)...") 
-
-    # get temperature
-    r = requests.get('http://pc.ornpz.ru/meteo/meteo.xml')
+#        bot.send_chat_action(message.chat.id, 'upload_photo')
+#        img = open('out.jpg', 'rb')
+#        bot.send_photo(message.chat.id, img)
+#        img.close()
+#    else:
+#        bot.send_message(message.chat.id, "Произошла какая-то хуйня (URL: http://pc.ornpz.ru/meteo/temperature1day.png)...") 
+#
+#    # get temperature
+#    r = requests.get('http://pc.ornpz.ru/meteo/meteo.xml')
+#    if r.status_code == 200:
+#        doc = xmltodict.parse(r.text)
+            
+#        for section in doc['points']['point']:
+#            key = section.get('@name', None)
+#            # направление ветра
+#            #if key == 'PointName01':
+#            #    value = section.get('@value', None)
+#            #    print 'P:'+value
+#
+#            # температура
+#            if key == 'PointName05':       
+#                value = section.get('@value', None)
+#                print('T:' + value)
+#                bot.send_message(message.chat.id,'T: ' + value)
+#    else:
+#        bot.send_message(message.chat.id, u"cannot get content of ( URL: http://pc.ornpz.ru/meteo/meteo.xml)... ERROR:" + str(r.status))
+    # get temperature ORS
+    r = requests.get('http://api.openweathermap.org/data/2.5/weather?id=514734&units=metric&mode=xml&appid=7cad4e5a16fc989137d9dcaa7d726ff8')
     if r.status_code == 200:
         doc = xmltodict.parse(r.text)
-            
-        for section in doc['points']['point']:
-            key = section.get('@name', None)
-            # направление ветра
-            #if key == 'PointName01':
-            #    value = section.get('@value', None)
-            #    print 'P:'+value
-
-            # температура
-            if key == 'PointName05':       
-                value = section.get('@value', None)
-                print('T:' + value)
-                bot.send_message(message.chat.id,'T: ' + value)
+        value = doc['current']['temperature']['@value']
+        print('MSK T:' + value)
+        bot.send_message(message.chat.id,'ORS T: ' + value)
     else:
-        bot.send_message(message.chat.id, u"cannot get content of ( URL: http://pc.ornpz.ru/meteo/meteo.xml)... ERROR:" + str(r.status))
+        bot.send_message(message.chat.id, u"cannot get content of ( URL: http://api.openweathermap.org/data/2.5/weather?id=514734&units=metric&mode=xml&appid=7cad4e5a16fc989137d9dcaa7d726ff8)... ERROR:" + str(r.status))
+
+
+
 
 @bot.message_handler(commands=['wm', 'пм'])
 @bot.message_handler(regexp="^.пм$")
