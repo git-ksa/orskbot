@@ -1,7 +1,6 @@
 # orskbot
 
 Bot for Telegram channel #orsk
-Invite: https://telegram.me/joinchat/B5623z5lC_jsIXaaArVhiA
 
 ### Installation
 Required python3
