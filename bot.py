@@ -217,7 +217,8 @@ def send_cucki(message):
      f.close()
  
      i = random.randint(0, len(links) - 1)
-     url = "https://blog.stanis.ru/" + links[i]
+#     url = "https://blog.stanis.ru/" + links[i]
+     url = "https://stanis.blog/" + links[i]
      bot.send_message(message.chat.id, url)
 #   else:
 #    tz = 'Europe/Moscow'
