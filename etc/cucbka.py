@@ -9,14 +9,14 @@ import time
 import requests
 from lxml import html, etree
 
-MIN_PAGE = 731
-MAX_PAGE = 821
+MIN_PAGE = 1
+MAX_PAGE = 1235
 
 f = open('cucbka.dat', 'a')
 for page in range(MIN_PAGE, MAX_PAGE + 1):
     print("Proccess page: " + str(page))
     
-    r = requests.get('https://blog.stanis.ru/?action=sch&searchby=category&what=4&page=' + str(page))
+    r = requests.get('https://stanis.blog//?action=sch&searchby=category&what=4&page=' + str(page))
     if r.status_code == 200:
         tree = html.fromstring(r.text)
         links = tree.xpath('//div[@class="pic"]/img/@src')
